@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Login - My Website</title>
+  <title>Login - Admin</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Bootstrap CSS -->
@@ -70,7 +70,7 @@
           Incorrect username or password. Please try again.
         </div>
       <?php } ?>
-      <form method="POST" action="api/login_check.php">
+      <form method="POST" action="api/admin_login_check.php">
         <div class="form-group">
           <label for="username">Username</label>
           <input type="text" class="form-control" id="username" name="username" required>
@@ -81,8 +81,8 @@
         </div>
         <button type="submit" class="btn btn-primary btn-block">Login</button>
       </form>
-      <a href="register.php">Not registered yet? Register Here</a>
-      <a href="admin/login.php">Login as admin</a>
+      <!-- <a href="register.php">Not registered yet? Register Here</a> -->
+      <!-- <a href="../login.php">Login as user</a> -->
     </div>
   </div>
   <!-- Bootstrap JS -->

@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (isset($_GET['id'])) {
     // Retrieve the document information with the specified ID value
     $id       = mysqli_real_escape_string($conn, $_GET['id']);
-    $sql      = "SELECT * FROM documents WHERE id = '$id'";
+    $sql      = "SELECT * FROM documents WHERE doc_id = '$id'";
     $result   = mysqli_query($conn, $sql);
     $document = mysqli_fetch_assoc($result);
 
@@ -49,7 +49,7 @@ mysqli_close($conn);
   <div class="container">
     <h1>Edit Document Form</h1>
     <form action="../api/update-document.php" method="post" enctype="multipart/form-data">
-      <input type="hidden" name="id" value="<?php echo $document['id'] ?>">
+      <input type="hidden" name="id" value="<?php echo $document['doc_id'] ?>">
       <div class="form-group">
         <label for="title">Document Title:</label>
         <input type="text" class="form-control" id="title" name="title" value="<?php echo $document['title'] ?>">

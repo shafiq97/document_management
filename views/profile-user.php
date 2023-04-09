@@ -256,7 +256,7 @@ mysqli_close($conn);
       var table = $('#documents-table').DataTable({
         "ajax": "documents-user.php",
         "columns": [
-          { "data": "id" },
+          { "data": "doc_id" },
           { "data": "title" },
           { "data": "date" },
           { "data": "description" },
@@ -278,7 +278,7 @@ mysqli_close($conn);
           {
             "data": null,
             "render": function (data, type, row) {
-              return '<a class="btn btn-primary" href="edit-document.php?id=' + row.id + '">Edit</a> <button class="btn btn-danger delete-btn" data-id="' + row.id + '">Delete</button>';
+              return '<a class="btn btn-primary" href="edit-document.php?id=' + row.doc_id + '">Edit</a> <button class="btn btn-danger delete-btn" data-id="' + row.doc_id + '">Delete</button>';
             }
           }
         ],
@@ -304,7 +304,7 @@ mysqli_close($conn);
       var table2 = $('#similar-table').DataTable({
         "ajax": "similar-documents.php",
         "columns": [
-          { "data": "id" },
+          { "data": "doc_id" },
           { "data": "title" },
           { "data": "date" },
           { "data": "description" },
@@ -326,7 +326,7 @@ mysqli_close($conn);
           {
             "data": null,
             "render": function (data, type, row) {
-              return '<a class="btn btn-primary" href="edit-document.php?id=' + row.id + '">Edit</a> <button class="btn btn-danger delete-btn" data-id="' + row.id + '">Delete</button>';
+              return '<a class="btn btn-primary" href="edit-document.php?id=' + row.doc_id + '">Edit</a> <button class="btn btn-danger delete-btn" data-id="' + row.doc_id + '">Delete</button>';
             }
           }
         ]

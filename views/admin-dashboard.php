@@ -8,6 +8,41 @@ if (isset($_GET['message'])) {
     $alertMessage = $_GET['message'];
   }
 }
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+// Set up database connection
+$servername = "localhost";
+$username   = "root";
+$password   = "";
+$dbname     = "document";
+
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
+}
+
+// Retrieve documents data from database
+$sql = "SELECT DISTINCT status, COUNT(*) AS count
+FROM documents
+GROUP BY status
+ORDER BY count DESC";
+
+$result = mysqli_query($conn, $sql);
+
+$data   = array();
+$labels = array();
+$count  = array();
+
+while ($row = mysqli_fetch_assoc($result)) {
+  $labels[] = $row['status'];
+  $count[]  = $row['count'];
+}
+
+$data['labels'] = $labels;
+$data['count']  = $count;
+
 ?>
 
 <!DOCTYPE html>
@@ -26,33 +61,11 @@ if (isset($_GET['message'])) {
   }
 </style>
 <body>
-  <?php include('header.php') ?>
+  <?php include('../admin/header.php') ?>
   <?php if (isset($alertClass)): ?>
     <div class="<?php echo $alertClass; ?>"><?php echo $alertMessage; ?></div>
   <?php endif; ?>
   <div class="container" style="padding-top: 3vh">
-    <div class="row">
-      <div class="col-md-3">
-        <select id="status-filter" class="form-control">
-          <option value="">Filter by status</option>
-          <option value="publish">Published</option>
-          <option value="unpublish">Unpublished</option>
-          <option value="draft">Draft</option>
-          <option value="archived">Archived</option>
-        </select>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-3">
-        <select id="type-filter" class="form-control">
-          <option value="">Filter by type</option>
-          <option value="published">Published</option>
-          <option value="unpublish">Unpublished</option>
-          <option value="draft">Draft</option>
-          <option value="archived">Archived</option>
-        </select>
-      </div>
-    </div>
     <table id="documents-table">
       <thead>
         <tr>
@@ -76,8 +89,10 @@ if (isset($_GET['message'])) {
       </tbody>
     </table>
   </div>
-
-  <canvas id="myChart"></canvas>
+<h1 style="max-width: 50%; margin: 0 auto; text-align: center; margin-top: 20px;">Summary of document status</h1>
+  <div style="max-width: 50%; margin: 0 auto;">
+    <canvas id="myChart"></canvas>
+  </div>
 
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -181,24 +196,22 @@ if (isset($_GET['message'])) {
   </script>
   <script>
     var ctx = document.getElementById('myChart').getContext('2d');
-    var chart = new Chart(ctx, {
-      type: 'bar',
+    var myChart = new Chart(ctx, {
+      type: 'pie',
       data: {
-        labels: ['Published', 'Unpublished', 'Draft', 'Archived'],
+        labels: <?php echo json_encode($data['labels']); ?>,
         datasets: [{
-          label: 'Number of Documents',
-          data: [10, 5, 7, 3],
+          label: 'Document Status',
+          data: <?php echo json_encode($data['count']); ?>,
           backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)'
+            'rgba(255, 99, 132, 0.2)', // Red
+            'rgba(54, 162, 235, 0.2)', // Blue
+            'rgba(255, 206, 86, 0.2)' // Yellow
           ],
           borderColor: [
             'rgba(255, 99, 132, 1)',
             'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)'
+            'rgba(255, 206, 86, 1)'
           ],
           borderWidth: 1
         }]
@@ -211,6 +224,7 @@ if (isset($_GET['message'])) {
         }
       }
     });
+
 
   </script>
 </body>
