@@ -49,10 +49,19 @@ $data['count']  = $count;
 <html>
 <head>
   <title>Documents</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+  <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/vfs_fonts.js"></script>
+
 </head>
 <style>
   .container {
@@ -89,17 +98,21 @@ $data['count']  = $count;
       </tbody>
     </table>
   </div>
-<h1 style="max-width: 50%; margin: 0 auto; text-align: center; margin-top: 20px;">Summary of document status</h1>
+  <h1 style="max-width: 50%; margin: 0 auto; text-align: center; margin-top: 20px;">Summary of document status</h1>
   <div style="max-width: 50%; margin: 0 auto;">
     <canvas id="myChart"></canvas>
   </div>
 
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
   <script>
     $(document).ready(function () {
       var table = $('#documents-table').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+          'copyHtml5',
+          'excelHtml5',
+          'pdfHtml5'
+        ],
         "ajax": "documents-data.php",
         "columns": [
           { "data": "id" },
