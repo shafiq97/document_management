@@ -64,7 +64,7 @@
 <body>
   <div class="container">
     <div class="card">
-      <h1 class="card-title">Login</h1>
+      <h1 class="card-title">Admin Login</h1>
       <?php if (isset($_GET['error']) && $_GET['error'] == 1) { ?>
         <div class="alert alert-danger" role="alert">
           Incorrect username or password. Please try again.

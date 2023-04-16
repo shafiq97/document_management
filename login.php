@@ -64,6 +64,15 @@
 <body>
   <div class="container">
     <div class="card">
+      <?php
+      if(isset($_GET['message'])){
+        ?>
+        <div class="alert alert-success">
+          <p>User has been registered successfully</p>
+        </div>
+        <?php
+      }
+      ?>
       <h1 class="card-title">Login</h1>
       <?php if (isset($_GET['error']) && $_GET['error'] == 1) { ?>
         <div class="alert alert-danger" role="alert">

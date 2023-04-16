@@ -69,6 +69,7 @@ if (isset($_GET['message'])) {
           <th>File Path</th>
           <th>Created At</th>
           <th>Download</th>
+          <th>Preview</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -77,13 +78,18 @@ if (isset($_GET['message'])) {
     </table>
   </div>
 
-  <canvas id="myChart"></canvas>
-
-
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
   <script>
     $(document).ready(function () {
+      
+      $('#documents-table tbody').on('click', '.preview-btn', function () {
+        var filepath = $(this).data('filepath');
+        var previewUrl = '../api/' + filepath + '?preview=true';
+
+        window.open(previewUrl);
+      });
+
       var table = $('#documents-table').DataTable({
         "ajax": "documents-data.php",
         "columns": [
@@ -110,6 +116,12 @@ if (isset($_GET['message'])) {
               return '<a href="../api/' + row.filepath + '" download="' + row.filename + '">Download</a>';
             },
             "type": "file"
+          },
+          {
+            "data": "filepath",
+            "render": function (data, type, row) {
+              return '<button class="btn btn-secondary preview-btn" data-filepath="' + row.filepath + '">Preview</button>';
+            }
           },
 
           {
@@ -178,40 +190,6 @@ if (isset($_GET['message'])) {
           });
       });
     });
-  </script>
-  <script>
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var chart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Published', 'Unpublished', 'Draft', 'Archived'],
-        datasets: [{
-          label: 'Number of Documents',
-          data: [10, 5, 7, 3],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-
   </script>
 </body>
 </html>
