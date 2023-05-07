@@ -192,28 +192,28 @@ mysqli_close($conn);
     </div>
   </div>
   <div class="container">
-      <table id="similar-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Type</th>
-            <th>Author</th>
-            <th>Keywords</th>
-            <th>Status</th>
-            <th>File Name</th>
-            <th>File Path</th>
-            <th>Created At</th>
-            <th>Download</th>
-            <!-- <th>Action</th> -->
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </div>
+    <table id="similar-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Type</th>
+          <th>Author</th>
+          <th>Keywords</th>
+          <th>Status</th>
+          <th>File Name</th>
+          <th>File Path</th>
+          <th>Created At</th>
+          <th>Download</th>
+          <!-- <th>Action</th> -->
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
 
 
   <!-- Bootstrap JS -->
