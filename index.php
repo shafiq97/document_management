@@ -16,12 +16,8 @@
   <link rel="mask-icon" type="image/x-icon"
     href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg"
     color="#111" />
-
-
-
   <script src="https://cpwebassets.codepen.io/assets/packs/js/authorizeDataCapture-7ffc51c99fc12a2f2825.js"></script>
-
-  <title>CodePen - Website Homepage</title>
+  <title>Home</title>
   <link rel="canonical" href="https://codepen.io/Creepercraft206/pen/OJBNqNg" />
 
 
