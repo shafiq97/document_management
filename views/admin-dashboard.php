@@ -113,7 +113,7 @@ $data['count']  = $count;
           'excelHtml5',
           'pdfHtml5'
         ],
-        "ajax": "documents-data.php",
+        "ajax": "documents-data-admin.php",
         "columns": [
           { "data": "id" },
           { "data": "title" },
@@ -143,7 +143,7 @@ $data['count']  = $count;
           {
             "data": "doc_id",
             "render": function (data, type, row) {
-              return '<a class="btn btn-primary" href="edit-document.php?id=' + row.doc_id + '">Edit</a> <button class="btn btn-danger delete-btn" data-id="' + row.doc_id + '">Delete</button><a class="btn btn-warning" href="review.php?doc_id=' + row.doc_id + '">Review</a>';
+              return '<a class="btn btn-primary" href="edit-document.php?id=' + row.doc_id + '">Delete</button><a class="btn btn-warning" href="review-admin.php?doc_id=' + row.doc_id + '">Review</a>';
             }
           },
         ]
