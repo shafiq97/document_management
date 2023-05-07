@@ -54,6 +54,7 @@ if (isset($_GET['message'])) {
       </div>
     </div>
     <table id="documents-table">
+      <!-- ... -->
       <thead>
         <tr>
           <th>ID</th>
@@ -70,9 +71,26 @@ if (isset($_GET['message'])) {
           <th>Created At</th>
           <th>Download</th>
           <th>Preview</th>
-          <th>Action</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
         </tr>
       </thead>
+
+
       <tbody>
       </tbody>
     </table>
@@ -82,7 +100,11 @@ if (isset($_GET['message'])) {
   <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
   <script>
     $(document).ready(function () {
-      
+      $('#documents-table thead tr')
+        .clone(true)
+        .addClass('filters')
+        .appendTo('#documents-table thead');
+
       $('#documents-table tbody').on('click', '.preview-btn', function () {
         var filepath = $(this).data('filepath');
         var previewUrl = '../api/' + filepath + '?preview=true';
@@ -92,6 +114,55 @@ if (isset($_GET['message'])) {
 
       var table = $('#documents-table').DataTable({
         "ajax": "documents-data.php",
+        "initComplete": function () {
+          var api = this.api();
+
+          // For each column
+          api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+              // Set the header cell to contain the input element
+              var cell = $('.filters th').eq(
+                $(api.column(colIdx).header()).index()
+              );
+              var title = $(cell).text();
+              $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+              // On every keypress in this input
+              $(
+                'input',
+                $('.filters th').eq($(api.column(colIdx).header()).index())
+              )
+                .off('keyup change')
+                .on('change', function (e) {
+                  // Get the search value
+                  $(this).attr('title', $(this).val());
+                  var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                  var cursorPosition = this.selectionStart;
+                  // Search the column for that value
+                  api
+                    .column(colIdx)
+                    .search(
+                      this.value != ''
+                        ? regexr.replace('{search}', '(((' + this.value + ')))')
+                        : '',
+                      this.value != '',
+                      this.value == ''
+                    )
+                    .draw();
+                })
+                .on('keyup', function (e) {
+                  e.stopPropagation();
+
+                  $(this).trigger('change');
+                  $(this)
+                    .focus()[0]
+                    .setSelectionRange(cursorPosition, cursorPosition);
+                });
+            });
+        },
         "columns": [
           { "data": "id" },
           { "data": "title" },
@@ -124,14 +195,19 @@ if (isset($_GET['message'])) {
             }
           },
 
-          {
-            "data": "doc_id",
-            "render": function (data, type, row) {
-              return '<a class="btn btn-primary" href="edit-document.php?id=' + row.doc_id + '">Edit</a> <button class="btn btn-danger delete-btn" data-id="' + row.doc_id + '">Delete</button><a class="btn btn-warning" href="review.php?doc_id=' + row.doc_id + '">Review</a>';
-            }
-          },
+          // {
+          //   "data": "doc_id",
+          //   "render": function (data, type, row) {
+          //     return '<a class="btn btn-primary" href="edit-document.php?id=' + row.doc_id + '">Edit</a> <button class="btn btn-danger delete-btn" data-id="' + row.doc_id + '">Delete</button><a class="btn btn-warning" href="review.php?doc_id=' + row.doc_id + '">Review</a>';
+          //   }
+          // },
         ]
       });
+
+
+
+
+
       $('#status-filter').change(function () {
         var status = $(this).val();
         if (status) {
