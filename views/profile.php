@@ -116,19 +116,35 @@ mysqli_close($conn);
       border-radius: 20px;
     }
 
-    .btn {
+    .btn-primary,
+    .btn-danger {
       border-radius: 20px;
-      background-color: #4285f4;
-      border-color: #4285f4;
       font-weight: bold;
       transition: all 0.2s ease-in-out
     }
 
-    .btn:hover {
+    .btn-primary {
+      background-color: #4285f4;
+      border-color: #4285f4;
+    }
+
+    .btn-primary:hover {
       background-color: #357ae8;
       border-color: #357ae8;
       transform: scale(1.05);
     }
+
+    .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+
+    .btn-danger:hover {
+      background-color: #c82333;
+      border-color: #c82333;
+      transform: scale(1.05);
+    }
+
 
     .alert {
       margin-top: 20px;
