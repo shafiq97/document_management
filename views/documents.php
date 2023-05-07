@@ -31,7 +31,7 @@ if (isset($_GET['message'])) {
     <div class="<?php echo $alertClass; ?>"><?php echo $alertMessage; ?></div>
   <?php endif; ?>
   <div class="container" style="padding-top: 3vh">
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-3">
         <select id="status-filter" class="form-control">
           <option value="">Filter by status</option>
@@ -52,7 +52,7 @@ if (isset($_GET['message'])) {
           <option value="archived">Archived</option>
         </select>
       </div>
-    </div>
+    </div> -->
     <table id="documents-table">
       <!-- ... -->
       <thead>
@@ -119,7 +119,7 @@ if (isset($_GET['message'])) {
 
           // For each column
           api
-            .columns()
+            .columns([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
             .eq(0)
             .each(function (colIdx) {
               // Set the header cell to contain the input element
@@ -139,7 +139,6 @@ if (isset($_GET['message'])) {
                   // Get the search value
                   $(this).attr('title', $(this).val());
                   var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
                   var cursorPosition = this.selectionStart;
                   // Search the column for that value
                   api
@@ -155,7 +154,6 @@ if (isset($_GET['message'])) {
                 })
                 .on('keyup', function (e) {
                   e.stopPropagation();
-
                   $(this).trigger('change');
                   $(this)
                     .focus()[0]
@@ -203,10 +201,6 @@ if (isset($_GET['message'])) {
           // },
         ]
       });
-
-
-
-
 
       $('#status-filter').change(function () {
         var status = $(this).val();
