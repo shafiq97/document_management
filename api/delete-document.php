@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 
   // Prepare and execute the DELETE query
-  $stmt = $pdo->prepare("DELETE FROM documents WHERE id = ?");
+  $stmt = $pdo->prepare("DELETE FROM documents WHERE doc_id = ?");
   $stmt->execute([$id]);
 
   // Check if the query was successful
