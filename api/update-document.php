@@ -40,10 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     move_uploaded_file($tmpName, $destination);
 
     // Update the file information in the database
-    $sql = "UPDATE documents SET title = '$title', date = '$date', description = '$description', type = '$type', author = '$author', keywords = '$keywords', status = '$status', filename = '$newFilename', filepath = '$destination' WHERE id = '$id'";
+    $sql = "UPDATE documents SET title = '$title', date = '$date', description = '$description', type = '$type', author = '$author', keywords = '$keywords', status = '$status', filename = '$newFilename', filepath = '$destination' WHERE doc_id = '$id'";
   } else {
     // Update the document information without updating the file information in the database
-    $sql = "UPDATE documents SET title = '$title', date = '$date', description = '$description', type = '$type', author = '$author', keywords = '$keywords', status = '$status' WHERE id = '$id'";
+    $sql = "UPDATE documents SET title = '$title', date = '$date', description = '$description', type = '$type', author = '$author', keywords = '$keywords', status = '$status' WHERE doc_id = '$id'";
   }
   // Execute the SQL statement and check for errors
   if (mysqli_query($conn, $sql)) {
