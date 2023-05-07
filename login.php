@@ -103,7 +103,7 @@
         <button type="submit" class="btn btn-primary btn-block">Login</button>
       </form>
       <a href="register.php">Not registered yet? Register Here</a>
-      <a href="admin/login.php">Login as admin</a>
+      <!-- <a href="admin/login.php">Login as admin</a> -->
     </div>
   </div>
   <!-- FontAwesome -->

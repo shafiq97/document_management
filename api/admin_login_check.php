@@ -41,7 +41,7 @@ if ($result->num_rows == 1) {
     }
 } else {
     // Authentication failed, redirect back to the login page with an error message
-    header("Location: ../login.php?error=1");
+    header("Location: ../admin/login.php?error=1");
 }
 
 // Close the database connection

@@ -70,7 +70,7 @@
           Incorrect username or password. Please try again.
         </div>
       <?php } ?>
-      <form method="POST" action="api/admin_login_check.php">
+      <form method="POST" action="../api/admin_login_check.php">
         <div class="form-group">
           <label for="username">Username</label>
           <input type="text" class="form-control" id="username" name="username" required>
