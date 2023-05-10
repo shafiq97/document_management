@@ -216,6 +216,10 @@ mysqli_close($conn);
             <input type="password" class="form-control" id="confirm_password" name="confirm_password"
               placeholder="Confirm New Password">
           </div>
+          <div class="form-group">
+            <label for="show_password">Show Password</label>
+            <input type="checkbox" id="show_password">
+          </div>
           <button type="submit" class="btn btn-primary btn-block">Update Profile</button>
         </form>
         <a href="../logout.php">Logout</a>
@@ -405,6 +409,23 @@ mysqli_close($conn);
           });
       });
     });
+  </script>
+  <script>
+    function togglePasswordVisibility(inputElement, show) {
+      if (show) {
+        inputElement.attr('type', 'text');
+      } else {
+        inputElement.attr('type', 'password');
+      }
+    };
+    $(document).ready(function () {
+      $('#show_password').on('change', function () {
+        var show = $(this).is(':checked');
+        togglePasswordVisibility($('#new_password'), show);
+        togglePasswordVisibility($('#confirm_password'), show);
+      });
+    });
+
   </script>
 </body>
 </html>
