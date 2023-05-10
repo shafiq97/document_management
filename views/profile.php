@@ -33,12 +33,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $email    = mysqli_real_escape_string($conn, $_POST['email']);
   $password = mysqli_real_escape_string($conn, $_POST['password']);
 
+  $profile_picture = "";
+  if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] == 0) {
+    $upload_dir = '../uploads/profile_pictures/';
+    $file_ext   = pathinfo($_FILES['profile_picture']['name'], PATHINFO_EXTENSION);
+    $file_name  = $user_id . '.' . $file_ext;
+    $file_path  = $upload_dir . $file_name;
+
+    if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $file_path)) {
+      $profile_picture = "profile_picture = '$file_name',";
+    } else {
+      $error = "There was an error uploading your profile picture.";
+    }
+  }
+
   // Check if password was changed
   if (!empty($password)) {
     // $password = password_hash($password, PASSWORD_DEFAULT);
-    $sql = "UPDATE users SET name = '$name', email = '$email', password = '$password' WHERE id = $user_id";
+    $sql = "UPDATE users SET name = '$name', picture = '$file_path', email = '$email', password = '$password' WHERE id = $user_id";
   } else {
-    $sql = "UPDATE users SET name = '$name', email = '$email' WHERE id = $user_id";
+    $sql = "UPDATE users SET name = '$name', picture = '$file_path', email = '$email' WHERE id = $user_id";
   }
 
   if (mysqli_query($conn, $sql)) {
@@ -165,7 +179,14 @@ mysqli_close($conn);
         <?php elseif (isset($_GET['success']) && $_GET['success'] == 1): ?>
           <div class="alert alert-success">Your profile has been updated!</div>
         <?php endif ?>
-        <form method="POST" action="profile.php">
+        <form method="POST" action="profile.php" enctype="multipart/form-data">
+          <div class="form-group">
+            <img src="<?php echo $user['picture'] ?>" alt="Profile pic">
+          </div>
+          <div class="form-group">
+            <label for="profile_picture">Profile Picture</label>
+            <input type="file" class="form-control-file" id="profile_picture" name="profile_picture" accept="image/*">
+          </div>
           <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" id="name" name="name" value="<?php echo $user['name'] ?>">
