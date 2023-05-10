@@ -22,7 +22,7 @@
 				<h2>User Registration Form</h2>
 			</div>
 			<div class="card-body">
-				<form method="post" action="api/register.php" id="registrationForm">
+				<form method="post" action="api/register.php" id="registrationForm" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="username">Username:</label>
 						<input type="text" class="form-control" id="username" name="username" placeholder="Enter username">

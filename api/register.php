@@ -30,7 +30,7 @@ $name            = $_POST['name'];
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
 if (isset($_FILES['photo'])) {
-    $targetDir     = "user_uploads/";
+    $targetDir     = "../uploads/profile_pictures/";
     $targetFile    = $targetDir . basename($_FILES['photo']['name']);
     $uploadOk      = 1;
     $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
@@ -76,9 +76,8 @@ if (isset($_FILES['photo'])) {
     $image_path = $targetFile;
 }
 
-
 // Prepare and execute query
-$stmt = $conn->prepare("INSERT INTO users (username, password, email, status, role, course, programme, name, image_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt = $conn->prepare("INSERT INTO users (username, password, email, status, role, course, programme, name, picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 $stmt->bind_param("sssssssss", $username, $hashed_password, $email, $role, $role2, $course, $programme, $name, $image_path);
 $stmt->execute();
 
