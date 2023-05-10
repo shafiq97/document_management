@@ -31,7 +31,7 @@ $user    = mysqli_fetch_assoc($result);
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $name     = mysqli_real_escape_string($conn, $_POST['name']);
   $email    = mysqli_real_escape_string($conn, $_POST['email']);
-  $password = mysqli_real_escape_string($conn, $_POST['password']);
+  $password = mysqli_real_escape_string($conn, $_POST['new_password']);
 
   $profile_picture = "";
   if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] == 0) {
@@ -47,20 +47,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
   }
 
-  // Check if password was changed
-  if (!empty($password)) {
-    // $password = password_hash($password, PASSWORD_DEFAULT);
-    $sql = "UPDATE users SET name = '$name', picture = '$file_path', email = '$email', password = '$password' WHERE id = $user_id";
-  } else {
-    $sql = "UPDATE users SET name = '$name', picture = '$file_path', email = '$email' WHERE id = $user_id";
+  $error            = "";
+  $new_password     = trim($_POST['new_password']);
+  $confirm_password = trim($_POST['confirm_password']);
+
+  if (!empty($new_password) && !empty($confirm_password)) {
+    if ($new_password !== $confirm_password) {
+      $error = "New password and confirm password do not match.";
+    }
   }
 
-  if (mysqli_query($conn, $sql)) {
-    $_SESSION['name'] = $name;
-    header("Location: profile.php?success=1");
-    exit();
-  } else {
-    $error = "There was an error updating your profile.";
+  if (empty($error)) {
+    if (!empty($new_password)) {
+      $password = password_hash($new_password, PASSWORD_DEFAULT);
+      $sql      = "UPDATE users SET name = '$name', picture = '$file_path', email = '$email', password = '$password' WHERE id = $user_id";
+    } else {
+      $sql = "UPDATE users SET name = '$name', picture = '$file_path', email = '$email' WHERE id = $user_id";
+    }
+
+    if (mysqli_query($conn, $sql)) {
+      $_SESSION['name'] = $name;
+      header("Location: profile.php?success=1");
+      exit();
+    } else {
+      $error = "There was an error updating your profile.";
+    }
   }
 }
 
@@ -196,8 +207,14 @@ mysqli_close($conn);
             <input type="email" class="form-control" id="email" name="email" value="<?php echo $user['email'] ?>">
           </div>
           <div class="form-group">
-            <label for="password">New Password</label>
-            <input type="password" class="form-control" id="password" name="password">
+            <label for="new_password">New Password</label>
+            <input type="password" class="form-control" id="new_password" name="new_password"
+              placeholder="New Password">
+          </div>
+          <div class="form-group">
+            <label for="confirm_password">Confirm New Password</label>
+            <input type="password" class="form-control" id="confirm_password" name="confirm_password"
+              placeholder="Confirm New Password">
           </div>
           <button type="submit" class="btn btn-primary btn-block">Update Profile</button>
         </form>
