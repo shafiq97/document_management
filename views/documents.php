@@ -71,8 +71,10 @@ if (isset($_GET['message'])) {
           <th>Created At</th>
           <th>Download</th>
           <th>Preview</th>
+          <th>Review</th>
         </tr>
         <tr>
+          <th></th>
           <th></th>
           <th></th>
           <th></th>
@@ -199,6 +201,12 @@ if (isset($_GET['message'])) {
           //     return '<a class="btn btn-primary" href="edit-document.php?id=' + row.doc_id + '">Edit</a> <button class="btn btn-danger delete-btn" data-id="' + row.doc_id + '">Delete</button><a class="btn btn-warning" href="review.php?doc_id=' + row.doc_id + '">Review</a>';
           //   }
           // },
+          {
+            "data": "doc_id",
+            "render": function (data, type, row) {
+              return '<a class="btn btn-warning" href="review.php?doc_id=' + row.doc_id + '">Review</a>';
+            }
+          },
         ]
       });
 

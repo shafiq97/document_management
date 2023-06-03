@@ -253,8 +253,14 @@ mysqli_close($conn);
   <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
   <script>
     $(document).ready(function () {
+      var ajaxUrl = 'documents-user.php';
+      var userId = "<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>";
+
+      if (userId) {
+        ajaxUrl = 'documents-userId.php?id=' + userId;
+      }
       var table = $('#documents-table').DataTable({
-        "ajax": "documents-user.php",
+        "ajax": "ajaxUrl",
         "columns": [
           { "data": "doc_id" },
           { "data": "title" },
