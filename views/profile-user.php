@@ -255,12 +255,11 @@ mysqli_close($conn);
     $(document).ready(function () {
       var ajaxUrl = 'documents-user.php';
       var userId = "<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>";
-
       if (userId) {
         ajaxUrl = 'documents-user.php?id=' + userId;
       }
       var table = $('#documents-table').DataTable({
-        "ajax": "ajaxUrl",
+        "ajax": ajaxUrl,
         "columns": [
           { "data": "doc_id" },
           { "data": "title" },
