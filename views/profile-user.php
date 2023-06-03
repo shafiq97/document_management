@@ -257,7 +257,7 @@ mysqli_close($conn);
       var userId = "<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>";
 
       if (userId) {
-        ajaxUrl = 'documents-userId.php?id=' + userId;
+        ajaxUrl = 'documents-user.php?id=' + userId;
       }
       var table = $('#documents-table').DataTable({
         "ajax": "ajaxUrl",
