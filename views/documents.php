@@ -124,15 +124,13 @@
               echo "</div>";
               echo "<div class='card-actions'>";
               echo "<a class='card-title btn btn-secondary mr-3' style='margin-left:58px' href='../api/" . $document['filepath'] . "' download='" . $document['filename'] . "'>Download</a>";
-              echo "<a class='card-title btn btn-primary' href='../api/" . $document['filepath'] . "?preview=true'>Preview</a>";
+              echo "<a class='card-title btn btn-primary mr-3' href='../api/" . $document['filepath'] . "?preview=true'>Preview</a>";
+              echo "<a class='card-title btn btn-warning' href='review.php?doc_id=" . $document['doc_id'] . "'>Review</a>              ";
               echo "</div>";
               echo "</div>";
             }
             ?>
           </div>
-
-
-
         </div>
       </div>
     </div>
