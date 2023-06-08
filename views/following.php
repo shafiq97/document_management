@@ -249,6 +249,7 @@ if (mysqli_num_rows($result) > 0) {
         $profile = mysqli_fetch_assoc($result);
 
         // Display the profile information in the list item
+        echo '<a href="profile-user.php?id=' . $following_id . '">';
         echo '<li class="list" data-name="' . $profile['username'] . '">';
         echo '<div class="list__profile">';
         echo '<div><img src="' . $profile['picture'] . '"></div>';
@@ -260,6 +261,7 @@ if (mysqli_num_rows($result) > 0) {
         echo '<div class="list__photos">';
         echo '</div>';
         echo '</li>';
+        echo '</a>';
       }
       ?>
     </ul>
