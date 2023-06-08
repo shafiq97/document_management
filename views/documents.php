@@ -7,7 +7,6 @@
 </head>
 <style>
   /* Your styles here */
-
   .card-img {
     width: 50px;
     height: 50px;
@@ -40,7 +39,6 @@
   error_reporting(E_ALL);
   session_start();
 
-  // Set up database connection
   $servername = "localhost";
   $username   = "root";
   $password   = "";
@@ -51,10 +49,12 @@
   if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
   }
-  $user_id = $_SESSION['user_id'];
 
-  // Retrieve documents data from database
-  $sql    = "SELECT * FROM documents inner join users on documents.user_id = users.id";
+  $searchQuery = $_GET['query'] ?? '';
+
+  $sql    = "SELECT * FROM documents 
+             INNER JOIN users ON documents.user_id = users.id 
+             WHERE documents.title LIKE '%$searchQuery%'";
   $result = mysqli_query($conn, $sql);
 
   $data = array();
@@ -62,7 +62,6 @@
     $data[] = $row;
   }
 
-  // Close database connection
   mysqli_close($conn);
   ?>
 
@@ -71,11 +70,27 @@
   <?php endif; ?>
 
   <div class="container" style="padding-top: 3vh">
+    <!-- Search form -->
+    <div class="row">
+      <div class="col-12">
+        <form action="" method="GET">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search documents" name="query"
+              value="<?php echo htmlspecialchars($searchQuery) ?>">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <div class="row">
       <!-- Filter Section -->
       <div class="col-3 position-sticky" style="top:0;">
         <div class="filter-section">
           <h5>Filter by Subject:</h5>
+          <!-- Your checkboxes here... -->
           <div>
             <input type="checkbox" id="subject1" name="subject1" value="Mathematics">
             <label for="subject1"> Mathematics</label><br>
@@ -108,29 +123,27 @@
       <!-- Card List Section -->
       <div class="col-8">
         <div class="card-list">
-          <div class="card-list">
-            <?php
-            foreach ($data as $document) {
-              echo "<div class='card p-3'>";
-              echo "<div class='card-content'>";
-              echo "<a href='profile-user.php?id=" . htmlspecialchars($document['user_id']) . "'>";
-              echo "<img class='card-img' src='" . htmlspecialchars($document['picture']) . "' alt='Profile Picture'>";
-              echo "</a>";
-              echo "<div>";
-              echo "<div class='card-title'>" . htmlspecialchars($document['title']) . "</div>";
-              echo "<div class='card-subtitle'>Author: " . htmlspecialchars($document['author']) . "</div>";
-              echo "<div class='card-text mb-2'>" . htmlspecialchars($document['description']) . "</div>";
-              echo "</div>";
-              echo "</div>";
-              echo "<div class='card-actions'>";
-              echo "<a class='card-title btn btn-secondary mr-3' style='margin-left:58px' href='../api/" . $document['filepath'] . "' download='" . $document['filename'] . "'>Download</a>";
-              echo "<a class='card-title btn btn-primary mr-3' href='../api/" . $document['filepath'] . "?preview=true'>Preview</a>";
-              echo "<a class='card-title btn btn-warning' href='review.php?doc_id=" . $document['doc_id'] . "'>Review</a>              ";
-              echo "</div>";
-              echo "</div>";
-            }
-            ?>
-          </div>
+          <?php
+          foreach ($data as $document) {
+            echo "<div class='card p-3'>";
+            echo "<div class='card-content'>";
+            echo "<a href='profile-user.php?id=" . htmlspecialchars($document['user_id']) . "'>";
+            echo "<img class='card-img' src='" . htmlspecialchars($document['picture']) . "' alt='Profile Picture'>";
+            echo "</a>";
+            echo "<div>";
+            echo "<div class='card-title'>" . htmlspecialchars($document['title']) . "</div>";
+            echo "<div class='card-subtitle'>Author: " . htmlspecialchars($document['author']) . "</div>";
+            echo "<div class='card-text mb-2'>" . htmlspecialchars($document['description']) . "</div>";
+            echo "</div>";
+            echo "</div>";
+            echo "<div class='card-actions'>";
+            echo "<a class='card-title btn btn-secondary mr-3' style='margin-left:58px' href='../api/" . $document['filepath'] . "' download='" . $document['filename'] . "'>Download</a>";
+            echo "<a class='card-title btn btn-primary mr-3' href='../api/" . $document['filepath'] . "?preview=true'>Preview</a>";
+            echo "<a class='card-title btn btn-warning' href='review.php?doc_id=" . $document['doc_id'] . "'>Review</a>";
+            echo "</div>";
+            echo "</div>";
+          }
+          ?>
         </div>
       </div>
     </div>
