@@ -28,7 +28,7 @@
           <a class="dropdown-item" href="following.php">Following</a>
           <a class="dropdown-item" href="followers.php">Followers</a>
           <a class="dropdown-item" href="#">Favourite</a>
-          <a class="dropdown-item" href="#">Download</a>
+          <a class="dropdown-item" href="collections.php">Collection</a>
         </div>
       </li>
       <li class="nav-item">
