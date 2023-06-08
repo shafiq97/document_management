@@ -81,7 +81,7 @@ mysqli_close($conn);
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Profile - My Website</title>
+  <title>Profile</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Bootstrap CSS -->
@@ -104,9 +104,7 @@ mysqli_close($conn);
     }
 
     .container {
-      width: calc(20% - 10px);
-      margin-right: 10px;
-      margin-left: 20px;
+      width: 100%;
     }
 
     .container-table {
@@ -191,7 +189,7 @@ mysqli_close($conn);
           <div class="alert alert-success">Your profile has been updated!</div>
         <?php endif ?>
         <form method="POST" action="profile.php" enctype="multipart/form-data">
-          <div class="form-group">
+          <div class="form-group" style="text-align: center;">
             <img height="150px" src="<?php echo $user['picture'] ?>" alt="Profile pic">
           </div>
           <div class="form-group">
@@ -222,10 +220,9 @@ mysqli_close($conn);
           </div>
           <button type="submit" class="btn btn-primary btn-block">Update Profile</button>
         </form>
-        <a href="../logout.php">Logout</a>
       </div>
     </div>
-    <div class="container-table" style="padding-top: 3vh">
+    <!-- <div class="container-table" style="padding-top: 3vh">
       <table id="documents-table">
         <thead>
           <tr>
@@ -247,9 +244,9 @@ mysqli_close($conn);
         <tbody>
         </tbody>
       </table>
-    </div>
+    </div> -->
   </div>
-  <div class="container">
+  <!-- <div class="container">
     <table id="similar-table">
       <thead>
         <tr>
@@ -265,13 +262,13 @@ mysqli_close($conn);
           <th>File Path</th>
           <th>Created At</th>
           <th>Download</th>
-          <!-- <th>Action</th> -->
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
       </tbody>
     </table>
-  </div>
+  </div> -->
 
 
   <!-- Bootstrap JS -->

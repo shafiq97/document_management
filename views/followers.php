@@ -26,12 +26,12 @@ if (!$conn) {
 $following_ids     = [];
 $logged_in_user_id = $_SESSION['user_id'];
 
-$sql    = "SELECT following_id FROM follows WHERE follower_id = $logged_in_user_id";
+$sql    = "SELECT follower_id FROM follows WHERE following_id = $logged_in_user_id";
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
   while ($row = mysqli_fetch_assoc($result)) {
-    $following_ids[] = $row['following_id'];
+    $following_ids[] = $row['follower_id'];
   }
 }
 
