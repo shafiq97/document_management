@@ -54,7 +54,8 @@
 
   $sql    = "SELECT * FROM documents 
              INNER JOIN users ON documents.user_id = users.id 
-             WHERE documents.title LIKE '%$searchQuery%'";
+             WHERE documents.title LIKE '%$searchQuery%' and
+             documents.status <> 'draft'";
   $result = mysqli_query($conn, $sql);
 
   $data = array();
