@@ -26,15 +26,16 @@
   <style>
     body {
       margin: 0;
-      background-image: linear-gradient(-30deg,
-          #3f51b5 0%,
-          #2196f3 50%,
-          #87ceeb 100%);
+      background-image: url("front.jpeg");
       overflow-x: hidden;
       color: white;
       font-family: sans-serif;
-      height: 200vh;
+      height: 100vh;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
     }
+
 
     header {
       position: fixed;
@@ -80,30 +81,6 @@
       top: 35vh;
       left: 40vw;
       font-family: 'Montserrat', sans-serif;
-    }
-
-    h1::after {
-      content: "";
-      display: block;
-      position: absolute;
-      background-color: #312ecb;
-      border-radius: 1rem 0;
-      width: 10vw;
-      height: 1.5vw;
-      top: 5vw;
-      right: 0;
-      bottom: 0;
-      left: auto;
-      z-index: -1;
-    }
-
-    img {
-      position: absolute;
-      width: 15vw;
-      height: 15vw;
-      top: 35vh;
-      left: 25vw;
-      z-index: 150;
     }
 
     .blob {
@@ -172,15 +149,6 @@
     </nav>
   </header>
   <h1>Document Management</h1>
-  <img src="https://img.logoipsum.com/245.svg" alt="Logo">
-  <div class="blob" id="blob1"></div>
-  <div class="blob" id="blob2"></div>
-  <div class="blob" id="blob3"></div>
-  <svg id="line" viewBox="0 0 500 500" width="500" height="500">
-    <path style="stroke-width: 3px; stroke-linecap: round; stroke: rgb(179, 192, 239); paint-order: stroke; fill: none;"
-      d="M 410.107 119.627 C 610.559 91.754 447.468 205.23 267.236 230.292 C 98.654 236.087 197.1 61.629 103.197 159.266 C 142.803 121.311 -69.077 302.058 126.896 342.895">
-    </path>
-  </svg>
 </body>
 
 </html>

@@ -164,6 +164,7 @@ mysqli_close($conn);
             <input type="password" class="form-control" id="password" name="password">
           </div> -->
           <!-- <button type="submit" class="btn btn-primary btn-block">Update Profile</button> -->
+          <button type="button" class="btn btn-block btn-primary" id="followButton">Follow</button>
         </form>
         <!-- <a href="../logout.php">Logout</a> -->
       </div>
@@ -396,5 +397,35 @@ mysqli_close($conn);
         });
     });
   </script>
+  <script>
+    $(document).ready(function () {
+      // Follow button click event handler
+      $('#followButton').click(function () {
+        // Perform the necessary actions when the button is clicked
+        // For example, you can send an AJAX request to the server to update the user's following status
+        // and handle the response accordingly
+        // Here's an example of an AJAX request using jQuery:
+        $.ajax({
+          url: '../api/follow.php', // Replace 'follow.php' with the actual URL to handle the follow action
+          method: 'POST',
+          data: {
+            following_id: <?php echo $user_id; ?>,
+            user_id: <?php echo $user_id; ?>,
+            follower_id: <?php echo $_SESSION['user_id']; ?>
+          },
+          success: function (response) {
+            // Handle the success response
+            console.log('User followed successfully!');
+            console.log(response);
+          },
+          error: function (xhr, status, error) {
+            // Handle the error response
+            console.error('Error following user:', error);
+          }
+        });
+      });
+    });
+  </script>
+
 </body>
 </html>
