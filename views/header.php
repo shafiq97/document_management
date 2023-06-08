@@ -15,6 +15,9 @@
         <a class="nav-link" href="upload_docs.php">Upload Document</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="following.php">Following</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="about.php">About</a>
       </li>
       <li class="nav-item">

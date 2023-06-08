@@ -31,30 +31,7 @@ if (isset($_GET['message'])) {
     <div class="<?php echo $alertClass; ?>"><?php echo $alertMessage; ?></div>
   <?php endif; ?>
   <div class="container" style="padding-top: 3vh">
-    <!-- <div class="row">
-      <div class="col-md-3">
-        <select id="status-filter" class="form-control">
-          <option value="">Filter by status</option>
-          <option value="publish">Published</option>
-          <option value="unpublish">Unpublished</option>
-          <option value="draft">Draft</option>
-          <option value="archived">Archived</option>
-        </select>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-3">
-        <select id="type-filter" class="form-control">
-          <option value="">Filter by type</option>
-          <option value="published">Published</option>
-          <option value="unpublish">Unpublished</option>
-          <option value="draft">Draft</option>
-          <option value="archived">Archived</option>
-        </select>
-      </div>
-    </div> -->
     <table id="documents-table">
-      <!-- ... -->
       <thead>
         <tr>
           <th>ID</th>

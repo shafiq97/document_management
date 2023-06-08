@@ -71,6 +71,7 @@ mysqli_close($conn);
       background-color: #f5f5f5;
     }
 
+
     #content-wrapper {
       display: flex;
       flex-wrap: wrap;
@@ -415,8 +416,13 @@ mysqli_close($conn);
           },
           success: function (response) {
             // Handle the success response
-            console.log('User followed successfully!');
-            console.log(response);
+            if (response === 'success') {
+              $('#followButton').text('Followed').addClass('followed');
+            } else if (response === 'already_following') {
+              $('#followButton').text('Already Following').addClass('followed');
+            } else {
+              // Handle other response values or errors
+            }
           },
           error: function (xhr, status, error) {
             // Handle the error response

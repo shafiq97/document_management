@@ -192,7 +192,7 @@ mysqli_close($conn);
         <?php endif ?>
         <form method="POST" action="profile.php" enctype="multipart/form-data">
           <div class="form-group">
-            <img src="<?php echo $user['picture'] ?>" alt="Profile pic">
+            <img height="150px" src="<?php echo $user['picture'] ?>" alt="Profile pic">
           </div>
           <div class="form-group">
             <label for="profile_picture">Profile Picture</label>
