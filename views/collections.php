@@ -100,12 +100,11 @@ mysqli_close($conn);
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      /* Center the table container */
       align-items: center;
     }
 
     .container-table {
-      width: calc(50% - 10px);
+      width: calc(100%);
       margin-left: 10px;
       margin-left: 20px;
     }
@@ -173,18 +172,12 @@ mysqli_close($conn);
       margin-top: 20px;
       text-align: center;
     }
-
-    @media screen and (max-width: 768px) {
-      .container-table {
-        padding: 10px;
-      }
-    }
   </style>
 </head>
 <body>
   <?php include('header.php') ?>
   <div id='content-wrapper'>
-    <div class="container-table" style="padding-top: 3vh">
+  <div class="container-table" style="padding-top: 3vh">
       <table id="documents-table">
         <thead>
           <tr>
