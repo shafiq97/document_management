@@ -7,40 +7,53 @@
 </head>
 <style>
   /* Your styles here */
+
+  .card-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+
+  .card-content {
+    display: flex;
+    align-items: start;
+  }
 </style>
 <body>
-  <?php 
-    include('header.php'); 
+  <?php
+  include('header.php');
 
-    ini_set('display_errors', '1');
-    ini_set('display_startup_errors', '1');
-    error_reporting(E_ALL);
-    session_start();
+  ini_set('display_errors', '1');
+  ini_set('display_startup_errors', '1');
+  error_reporting(E_ALL);
+  session_start();
 
-    // Set up database connection
-    $servername = "localhost";
-    $username   = "root";
-    $password   = "";
-    $dbname     = "document";
+  // Set up database connection
+  $servername = "localhost";
+  $username   = "root";
+  $password   = "";
+  $dbname     = "document";
 
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
+  $conn = mysqli_connect($servername, $username, $password, $dbname);
 
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-    $user_id = $_SESSION['user_id'];
+  if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+  }
+  $user_id = $_SESSION['user_id'];
 
-    // Retrieve documents data from database
-    $sql = "SELECT * FROM documents inner join users on documents.user_id = users.id";
-    $result = mysqli_query($conn, $sql);
+  // Retrieve documents data from database
+  $sql    = "SELECT * FROM documents inner join users on documents.user_id = users.id";
+  $result = mysqli_query($conn, $sql);
 
-    $data = array();
-    while ($row = mysqli_fetch_assoc($result)) {
-        $data[] = $row;
-    }
+  $data = array();
+  while ($row = mysqli_fetch_assoc($result)) {
+    $data[] = $row;
+  }
 
-    // Close database connection
-    mysqli_close($conn);
+  // Close database connection
+  mysqli_close($conn);
   ?>
 
   <?php if (isset($alertClass)): ?>
@@ -50,17 +63,24 @@
   <div class="container" style="padding-top: 3vh">
     <div class="card-list">
       <?php
-        foreach ($data as $document) {
-          echo "<div class='card p-3'>";
-          echo "<div class='card-title'>" . htmlspecialchars($document['title']) . "</div>";
-          echo "<div class='card-subtitle'>Author: " . htmlspecialchars($document['author']) . "</div>";
-          echo "<div class='card-text'>" . htmlspecialchars($document['description']) . "</div>";
-          echo "<div class='card-actions'>";
-          echo "<a class='btn btn-secondary mr-3' href='../api/" . $document['filepath'] . "' download='" . $document['filename'] . "'>Download</a>";
-          echo "<a class='btn btn-primary' href='../api/" . $document['filepath'] . "?preview=true'>Preview</a>";
-          echo "</div>";
-          echo "</div>";
-        }
+      foreach ($data as $document) {
+        echo "<div class='card p-3'>";
+        echo "<div class='card-content'>";
+        echo "<a href='profile-user.php?id=" . htmlspecialchars($document['user_id']) . "'>";
+        echo "<img class='card-img' src='" . htmlspecialchars($document['picture']) . "' alt='Profile Picture'>";
+        echo "</a>";
+        echo "<div>";
+        echo "<div class='card-title'>" . htmlspecialchars($document['title']) . "</div>";
+        echo "<div class='card-subtitle'>Author: " . htmlspecialchars($document['author']) . "</div>";
+        echo "<div class='card-text'>" . htmlspecialchars($document['description']) . "</div>";
+        echo "</div>";
+        echo "</div>";
+        echo "<div class='card-actions'>";
+        echo "<a class='btn btn-secondary mr-3' href='../api/" . $document['filepath'] . "' download='" . $document['filename'] . "'>Download</a>";
+        echo "<a class='btn btn-primary' href='../api/" . $document['filepath'] . "?preview=true'>Preview</a>";
+        echo "</div>";
+        echo "</div>";
+      }
       ?>
     </div>
   </div>
