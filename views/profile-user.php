@@ -327,13 +327,6 @@ mysqli_close($conn);
             },
             "type": "file"
           },
-
-          {
-            "data": null,
-            "render": function (data, type, row) {
-              return '<a class="btn btn-primary" href="edit-document.php?id=' + row.doc_id + '">Edit</a> <button class="btn btn-danger delete-btn" data-id="' + row.doc_id + '">Delete</button>';
-            }
-          }
         ]
       });
 
