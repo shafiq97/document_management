@@ -22,7 +22,7 @@ if (!$conn) {
 
 // Retrieve documents data from database
 if (isset($_GET['id'])) {
-  $sql = "SELECT * FROM documents where user_id = '$_GET[id]'";
+  $sql = "SELECT * FROM documents where user_id = '$_GET[id]' and status <> 'draft'";
 } else {
   $sql = "SELECT * FROM documents where user_id = '$_SESSION[user_id]'";
 }
