@@ -1,58 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['user_id'])) {
-  header("Location: ../login.php");
-  exit();
-}
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(-1);
-error_reporting(E_ALL);
-
-// Connect to database
-$servername = "localhost";
-$username   = "root";
-$password   = "";
-$dbname     = "document";
-$conn       = mysqli_connect($servername, $username, $password, $dbname);
-
-// Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
-}
-
-// Get user information from database
-$user_id = $_GET['id'];
-$sql     = "SELECT * FROM users WHERE id = $user_id";
-$result  = mysqli_query($conn, $sql);
-$user    = mysqli_fetch_assoc($result);
-
-// Update user information if form was submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $name     = mysqli_real_escape_string($conn, $_POST['name']);
-  $email    = mysqli_real_escape_string($conn, $_POST['email']);
-  $password = mysqli_real_escape_string($conn, $_POST['password']);
-
-  // Check if password was changed
-  if (!empty($password)) {
-    // $password = password_hash($password, PASSWORD_DEFAULT);
-    $sql = "UPDATE users SET name = '$name', email = '$email', password = '$password' WHERE id = $user_id";
-  } else {
-    $sql = "UPDATE users SET name = '$name', email = '$email' WHERE id = $user_id";
-  }
-
-  if (mysqli_query($conn, $sql)) {
-    $_SESSION['name'] = $name;
-    header("Location: profile.php?success=1");
-    exit();
-  } else {
-    $error = "There was an error updating your profile.";
-  }
-}
-
-mysqli_close($conn);
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,13 +30,20 @@ mysqli_close($conn);
     }
 
     .container {
-      width: calc(20% - 10px);
+      width: calc(20% - 50px);
       margin-right: 10px;
       margin-left: 20px;
     }
 
     .container-table {
-      width: calc(50% - 10px);
+      width: calc(70% - 10px);
+      margin-left: 10px;
+      margin-left: 20px;
+
+    }
+
+    .container-table-similar {
+      width: calc(80% - 10px);
       margin-left: 10px;
       margin-left: 20px;
 
@@ -140,6 +92,27 @@ mysqli_close($conn);
       margin-top: 20px;
       text-align: center;
     }
+
+    .dataTables_wrapper {
+      padding-top: 3vh;
+    }
+
+    .dataTables_filter label {
+      font-weight: bold;
+    }
+
+    .dataTables_length label {
+      font-weight: bold;
+    }
+
+    .dataTables_paginate .pagination {
+      justify-content: center;
+    }
+
+    .table-responsive {
+      max-height: 400px;
+      overflow-y: auto;
+    }
   </style>
 </head>
 <body>
@@ -175,8 +148,54 @@ mysqli_close($conn);
         <!-- <a href="../logout.php">Logout</a> -->
       </div>
     </div>
-    <div class="container-table" style="padding-top: 3vh">
-      <table id="documents-table">
+    <div class="container-table">
+      <div class="table-responsive">
+        <table id="documents-table" class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Author</th>
+              <th>Keywords</th>
+              <th>Status</th>
+              <th>File Name</th>
+              <!-- <th>File Path</th> -->
+              <th>Created At</th>
+              <th>Download</th>
+              <!-- <th>Action</th> -->
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Type</th>
+              <th>Author</th>
+              <th>Keywords</th>
+              <th>Status</th>
+              <th>File Name</th>
+              <!-- <th>File Path</th> -->
+              <th>Created At</th>
+              <th>Download</th>
+              <!-- <th>Action</th> -->
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+  <hr style='margin-top: 20px' class='container'>
+  <h1 style='margin-top: 100px' class='container'>Similar Document</h1>
+  <div class="container-table-similar">
+    <div class="table-responsive">
+      <table id="similar-table" class="table">
         <thead>
           <tr>
             <th>ID</th>
@@ -196,50 +215,8 @@ mysqli_close($conn);
         </thead>
         <tbody>
         </tbody>
-        <tfoot>
-          <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Type</th>
-            <th>Author</th>
-            <th>Keywords</th>
-            <th>Status</th>
-            <th>File Name</th>
-            <!-- <th>File Path</th> -->
-            <th>Created At</th>
-            <th>Download</th>
-            <!-- <th>Action</th> -->
-          </tr>
-        </tfoot>
       </table>
     </div>
-  </div>
-  <hr style='margin-top: 20px' class='container'>
-  <h1 style='margin-top: 100px' class='container'>Similar Document</h1>
-  <div class="container">
-    <table id="similar-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Title</th>
-          <th>Date</th>
-          <th>Description</th>
-          <th>Type</th>
-          <th>Author</th>
-          <th>Keywords</th>
-          <th>Status</th>
-          <th>File Name</th>
-          <!-- <th>File Path</th> -->
-          <th>Created At</th>
-          <th>Download</th>
-          <!-- <th>Action</th> -->
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
   </div>
 
 
