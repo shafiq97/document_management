@@ -6,7 +6,6 @@ if (!isset($_SESSION['user_id'])) {
 }
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
-error_reporting(-1);
 error_reporting(E_ALL);
 
 // Connect to database
@@ -222,54 +221,7 @@ mysqli_close($conn);
         </form>
       </div>
     </div>
-    <!-- <div class="container-table" style="padding-top: 3vh">
-      <table id="documents-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Type</th>
-            <th>Author</th>
-            <th>Keywords</th>
-            <th>Status</th>
-            <th>File Name</th>
-            <th>File Path</th>
-            <th>Created At</th>
-            <th>Download</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </div> -->
   </div>
-  <!-- <div class="container">
-    <table id="similar-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Title</th>
-          <th>Date</th>
-          <th>Description</th>
-          <th>Type</th>
-          <th>Author</th>
-          <th>Keywords</th>
-          <th>Status</th>
-          <th>File Name</th>
-          <th>File Path</th>
-          <th>Created At</th>
-          <th>Download</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
-  </div> -->
-
 
   <!-- Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -286,127 +238,7 @@ mysqli_close($conn);
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      var table = $('#documents-table').DataTable({
-        "ajax": "documents-user.php",
-        "columns": [
-          { "data": "doc_id" },
-          { "data": "title" },
-          { "data": "date" },
-          { "data": "description" },
-          { "data": "type" },
-          { "data": "author" },
-          { "data": "keywords" },
-          { "data": "status" },
-          { "data": "filename" },
-          { "data": "filepath" },
-          { "data": "created_at" },
-          {
-            "data": "filepath",
-            "render": function (data, type, row) {
-              return '<a href="../api/' + row.filepath + '" download="' + row.filename + '">Download</a>';
-            },
-            "type": "file"
-          },
-
-          {
-            "data": null,
-            "render": function (data, type, row) {
-              return '<a class="btn btn-primary" href="edit-document.php?id=' + row.doc_id + '">Edit</a> <button class="btn btn-danger delete-btn" data-id="' + row.doc_id + '">Delete</button>';
-            }
-          }
-        ]
-      });
-      var table2 = $('#similar-table').DataTable({
-        "ajax": "similar-documents.php",
-        "columns": [
-          { "data": "doc_id" },
-          { "data": "title" },
-          { "data": "date" },
-          { "data": "description" },
-          { "data": "type" },
-          { "data": "author" },
-          { "data": "keywords" },
-          { "data": "status" },
-          { "data": "filename" },
-          { "data": "filepath" },
-          { "data": "created_at" },
-          {
-            "data": "filepath",
-            "render": function (data, type, row) {
-              return '<a href="../api/' + row.filepath + '" download="' + row.filename + '">Download</a>';
-            },
-            "type": "file"
-          },
-
-          // {
-          //   "data": null,
-          //   "render": function (data, type, row) {
-          //     return '<a class="btn btn-primary" href="edit-document.php?id=' + row.id + '">Edit</a> <button class="btn btn-danger delete-btn" data-id="' + row.id + '">Delete</button>';
-          //   }
-          // }
-        ]
-      });
-      $('#status-filter').change(function () {
-        var status = $(this).val();
-        if (status) {
-          table.columns(7).search(status).draw();
-        } else {
-          table.columns(7).search('').draw();
-        }
-      });
-      $('#type-filter').change(function () {
-        var status = $(this).val();
-        if (status) {
-          table.columns(4).search(status).draw();
-        } else {
-          table.columns(4).search('').draw();
-        }
-      });
-
-      $('#documents-table tbody').on('click', '.edit-btn', function () {
-        var id = $(this).data('id');
-        // Redirect to edit page with document id as query parameter
-        window.location.href = 'edit-document.php?id=' + id;
-      });
-
-
-      // Handle delete button click
-      $('#documents-table tbody').on('click', '.delete-btn', function () {
-        var id = $(this).data('id');
-        swal({
-          title: "Are you sure?",
-          text: "You will not be able to recover this document!",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true,
-        })
-          .then((willDelete) => {
-            if (willDelete) {
-              $.ajax({
-                url: '../api/delete-document.php',
-                type: 'POST',
-                data: { id: id },
-                success: function (response) {
-                  if (response === 'success') {
-                    swal("Document deleted successfully!", {
-                      icon: "success",
-                    }).then(function () {
-                      $('#documents-table').DataTable().ajax.reload();
-                    });
-                  } else {
-                    swal("Failed to delete document. Please try again later.", {
-                      icon: "error",
-                    });
-                  }
-                }
-              });
-            }
-          });
-      });
-    });
-  </script>
+  
   <script>
     function togglePasswordVisibility(inputElement, show) {
       if (show) {
