@@ -71,6 +71,11 @@ mysqli_close($conn);
       background-color: #f5f5f5;
     }
 
+    #documents-table td:nth-child(4),
+    #documents-table th:nth-child(4) {
+      white-space: normal;
+      word-wrap: break-word;
+    }
 
     #content-wrapper {
       display: flex;
@@ -183,10 +188,10 @@ mysqli_close($conn);
             <th>Keywords</th>
             <th>Status</th>
             <th>File Name</th>
-            <th>File Path</th>
+            <!-- <th>File Path</th> -->
             <th>Created At</th>
             <th>Download</th>
-            <th>Action</th>
+            <!-- <th>Action</th> -->
           </tr>
         </thead>
         <tbody>
@@ -202,10 +207,10 @@ mysqli_close($conn);
             <th>Keywords</th>
             <th>Status</th>
             <th>File Name</th>
-            <th>File Path</th>
+            <!-- <th>File Path</th> -->
             <th>Created At</th>
             <th>Download</th>
-            <th>Action</th>
+            <!-- <th>Action</th> -->
           </tr>
         </tfoot>
       </table>
@@ -226,10 +231,10 @@ mysqli_close($conn);
           <th>Keywords</th>
           <th>Status</th>
           <th>File Name</th>
-          <th>File Path</th>
+          <!-- <th>File Path</th> -->
           <th>Created At</th>
           <th>Download</th>
-          <th>Action</th>
+          <!-- <th>Action</th> -->
         </tr>
       </thead>
       <tbody>
@@ -272,7 +277,7 @@ mysqli_close($conn);
           { "data": "keywords" },
           { "data": "status" },
           { "data": "filename" },
-          { "data": "filepath" },
+          // { "data": "filepath" },
           { "data": "created_at" },
           {
             "data": "filepath",
@@ -320,7 +325,7 @@ mysqli_close($conn);
           { "data": "keywords" },
           { "data": "status" },
           { "data": "filename" },
-          { "data": "filepath" },
+          // { "data": "filepath" },
           { "data": "created_at" },
           {
             "data": "filepath",
@@ -343,17 +348,17 @@ mysqli_close($conn);
     $('#status-filter').change(function () {
       var status = $(this).val();
       if (status) {
-        table.columns(7).search(status).draw();
+        table.columns(5).search(status).draw();
       } else {
-        table.columns(7).search('').draw();
+        table.columns(5).search('').draw();
       }
     });
     $('#type-filter').change(function () {
       var status = $(this).val();
       if (status) {
-        table.columns(4).search(status).draw();
+        table.columns(2).search(status).draw();
       } else {
-        table.columns(4).search('').draw();
+        table.columns().search('').draw();
       }
     });
 
