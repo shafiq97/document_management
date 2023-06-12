@@ -1,0 +1,84 @@
+A1	A2	A3	A4	A5	B1	B2	B3	B4	B5	C
+AAYK	ABYK	AAJ	ACXJ	AAAI	BAYK	BBYK	BAXJ	BCXJ	BAAI	CAAJ
+ 	 	AAK	ACXK	AAAJ	 	 	BAXK	BCXK	BAAJ	CAAK
+ 	 	AAL	ACXL	AAAK	 	 	BAXL	BCXL	BAAK	CAAL
+ 	 	AAJ	ACYJ	AAAL	 	 	BAYJ	BCYJ	BAAL	CAWI
+ 	 	AAL	ACYK	AAAM	 	 	BAYL	BCYK	BAAM	CAWK
+ 	 	AAJ	ACYL	AAWI	 	 	BAZJ	BCYL	BAWI	CAXI
+ 	 	AAK	ACZJ	AAWJ	 	 	BAZK	BCZJ	BAWJ	CAXK
+ 	 	AAL	ACZK	AAWK	 	 	BAZL	BCZK	BAWK	CAYJ
+ 	 	ABJ	ACZL	AAWL	 	 	BBXJ	BCZL	BAWL	CAYK
+ 	 	ABK	 	AAWM	 	 	BBXK	 	BAWM	CAYL
+ 	 	ABL	 	AAXI	 	 	BBXL	 	BAXI	CAYM
+ 	 	ABJ	 	AAXM	 	 	BBYJ	 	BAXM	CAZI
+ 	 	ABL	 	AAYI	 	 	BBYL	 	BAYI	CAZK
+ 	 	ABJ	 	AAYM	 	 	BBZJ	 	BAYM	CAZL
+ 	 	ABK	 	AAZI	 	 	BBZK	 	BAZI	CAZM
+ 	 	ABL	 	AAZM	 	 	BBZL	 	BAZM	CBAJ
+ 	 	 	 	ABAI	 	 	 	 	BBAI	CBAK
+ 	 	 	 	ABAJ	 	 	 	 	BBAJ	CBAL
+ 	 	 	 	ABAK	 	 	 	 	BBAK	CBAM
+ 	 	 	 	ABAL	 	 	 	 	BBAL	CBWI
+ 	 	 	 	ABAM	 	 	 	 	BBAM	CBWJ
+ 	 	 	 	ABWI	 	 	 	 	BBWI	CBWK
+ 	 	 	 	ABWJ	 	 	 	 	BBWJ	CBWL
+ 	 	 	 	ABWK	 	 	 	 	BBWK	CBXJ
+ 	 	 	 	ABWL	 	 	 	 	BBWL	CBXK
+ 	 	 	 	ABWM	 	 	 	 	BBWM	CBXL
+ 	 	 	 	ABXI	 	 	 	 	BBXI	CBXM
+ 	 	 	 	ABXM	 	 	 	 	BBXM	CBYI
+ 	 	 	 	ABYI	 	 	 	 	BBYI	CBYJ
+ 	 	 	 	ABYM	 	 	 	 	BBYM	CBYK
+ 	 	 	 	ABZI	 	 	 	 	BBZI	CBYL
+ 	 	 	 	ABZM	 	 	 	 	BBZM	CBYM
+ 	 	 	 	ACAI	 	 	 	 	BCAI	CBZI
+ 	 	 	 	ACAJ	 	 	 	 	BCAJ	CBZJ
+ 	 	 	 	ACAK	 	 	 	 	BCAK	CBZK
+ 	 	 	 	ACAL	 	 	 	 	BCAL	CBZL
+ 	 	 	 	ACAM	 	 	 	 	BCAM	CBZM
+ 	 	 	 	ACWI	 	 	 	 	BCWI	CCAI
+ 	 	 	 	ACWJ	 	 	 	 	BCWJ	CCAJ
+ 	 	 	 	ACWK	 	 	 	 	BCWK	CCAK
+ 	 	 	 	ACWL	 	 	 	 	BCWL	CCAL
+ 	 	 	 	ACWM	 	 	 	 	BCXI	CCAM
+ 	 	 	 	ACXI	 	 	 	 	BCXM	CCWJ
+ 	 	 	 	ACXM	 	 	 	 	BCYI	CCWK
+ 	 	 	 	ACYI	 	 	 	 	BCYM	CCWM
+ 	 	 	 	ACYM	 	 	 	 	BCZI	CCXI
+ 	 	 	 	ACZI	 	 	 	 	BCZM	CCXJ
+ 	 	 	 	ACZM	 	 	 	 	BDAI	CCXK
+ 	 	 	 	ADAI	 	 	 	 	BDAJ	CCXM
+ 	 	 	 	ADAJ	 	 	 	 	BDAK	CCYI
+ 	 	 	 	ADAK	 	 	 	 	BDAL	CCYJ
+ 	 	 	 	ADAL	 	 	 	 	BDAM	CCYK
+ 	 	 	 	ADAM	 	 	 	 	BDWI	CCYL
+ 	 	 	 	ADWI	 	 	 	 	BDWJ	CCYM
+ 	 	 	 	ADWJ	 	 	 	 	BDWK	CCZI
+ 	 	 	 	ADWK	 	 	 	 	BDWL	CCZJ
+ 	 	 	 	ADWL	 	 	 	 	BDWM	CCZK
+ 	 	 	 	ADXI	 	 	 	 	BDXI	CCZL
+ 	 	 	 	ADXJ	 	 	 	 	BDXJ	CCZM
+ 	 	 	 	ADXK	 	 	 	 	BDXK	CDAJ
+ 	 	 	 	ADXL	 	 	 	 	BDXL	CDAK
+ 	 	 	 	ADXM	 	 	 	 	BDXM	CDAL
+ 	 	 	 	ADYI	 	 	 	 	BDYI	CDAM
+ 	 	 	 	ADYJ	 	 	 	 	BDYJ	CDWI
+ 	 	 	 	ADYK	 	 	 	 	BDYK	CDWJ
+ 	 	 	 	ADYL	 	 	 	 	BDYL	CDWK
+ 	 	 	 	ADYM	 	 	 	 	BDYM	CDWL
+ 	 	 	 	ADZI	 	 	 	 	BDZI	CDWM
+ 	 	 	 	ADZJ	 	 	 	 	BDZJ	CDXI
+ 	 	 	 	ADZK	 	 	 	 	BDZK	CDXJ
+ 	 	 	 	ADZL	 	 	 	 	BDZL	CDXK
+ 	 	 	 	ADZM	 	 	 	 	BDZM	CDXL
+ 	 	 	 	 	 	 	 	 	 	CDXM
+ 	 	 	 	 	 	 	 	 	 	CDYI
+ 	 	 	 	 	 	 	 	 	 	CDYJ
+ 	 	 	 	 	 	 	 	 	 	CDYK
+ 	 	 	 	 	 	 	 	 	 	CDYL
+ 	 	 	 	 	 	 	 	 	 	CDYM
+ 	 	 	 	 	 	 	 	 	 	CDZI
+ 	 	 	 	 	 	 	 	 	 	CDZJ
+ 	 	 	 	 	 	 	 	 	 	CDZK
+ 	 	 	 	 	 	 	 	 	 	CDZL
+ 	 	 	 	 	 	 	 	 	 	CDZM

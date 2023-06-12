@@ -402,6 +402,7 @@ mysqli_close($conn);
     $(document).ready(function () {
       // Follow button click event handler
       $('#followButton').click(function () {
+        alert('click');
         // Perform the necessary actions when the button is clicked
         // For example, you can send an AJAX request to the server to update the user's following status
         // and handle the response accordingly
