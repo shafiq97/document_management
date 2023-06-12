@@ -113,7 +113,7 @@ mysqli_close($conn);
       width: 100%;
     }
 
-    .card {
+    åç .card {
       border: none;
       border-radius: 10px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -177,7 +177,7 @@ mysqli_close($conn);
 <body>
   <?php include('header.php') ?>
   <div id='content-wrapper'>
-  <div class="container-table" style="padding-top: 3vh">
+    <div class="container-table" style="padding-top: 3vh">
       <table id="documents-table">
         <thead>
           <tr>
@@ -190,10 +190,11 @@ mysqli_close($conn);
             <th>Keywords</th>
             <th>Status</th>
             <th>File Name</th>
-            <th>File Path</th>
+            <!-- <th>File Path</th> -->
             <th>Created At</th>
             <th>Download</th>
-            <th>Action</th>
+            <th>Edit</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -255,7 +256,7 @@ mysqli_close($conn);
           { "data": "keywords" },
           { "data": "status" },
           { "data": "filename" },
-          { "data": "filepath" },
+          // { "data": "filepath" },
           { "data": "created_at" },
           {
             "data": "filepath",
@@ -268,7 +269,13 @@ mysqli_close($conn);
           {
             "data": null,
             "render": function (data, type, row) {
-              return '<a class="btn btn-primary" href="edit-document.php?id=' + row.doc_id + '">Edit</a> <button class="btn btn-danger delete-btn" data-id="' + row.doc_id + '">Delete</button>';
+              return '<a class="btn btn-primary" href="edit-document.php?id=' + row.doc_id + '">Edit</a>';
+            }
+          },
+          {
+            "data": null,
+            "render": function (data, type, row) {
+              return '<button class="btn btn-danger delete-btn" data-id="' + row.doc_id + '">Delete</button>';
             }
           }
         ]
