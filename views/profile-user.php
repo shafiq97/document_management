@@ -422,7 +422,7 @@ mysqli_close($conn);
             } else if (response === 'already_following') {
               $('#followButton').text('Already Following').addClass('followed');
             } else {
-              // Handle other response values or errors
+              $('#followButton').text('Error on following').addClass('followed');
             }
           },
           error: function (xhr, status, error) {
