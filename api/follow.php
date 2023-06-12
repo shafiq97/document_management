@@ -37,7 +37,7 @@ if ($result->num_rows == 0) {
     echo "success";
   } else {
     // Failed to insert the follow record
-    echo "error";
+    echo $sql;
   }
 } else {
   // The user is already following the profile
