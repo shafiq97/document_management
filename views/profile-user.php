@@ -1,3 +1,57 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+  header("Location: ../login.php");
+  exit();
+}
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(-1);
+error_reporting(E_ALL);
+
+// Connect to database
+$servername = "localhost";
+$username   = "root";
+$password   = "";
+$dbname     = "document";
+$conn       = mysqli_connect($servername, $username, $password, $dbname);
+
+// Check connection
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
+}
+
+// Get user information from database
+$user_id = $_GET['id'];
+$sql     = "SELECT * FROM users WHERE id = $user_id";
+$result  = mysqli_query($conn, $sql);
+$user    = mysqli_fetch_assoc($result);
+
+// Update user information if form was submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $name     = mysqli_real_escape_string($conn, $_POST['name']);
+  $email    = mysqli_real_escape_string($conn, $_POST['email']);
+  $password = mysqli_real_escape_string($conn, $_POST['password']);
+
+  // Check if password was changed
+  if (!empty($password)) {
+    // $password = password_hash($password, PASSWORD_DEFAULT);
+    $sql = "UPDATE users SET name = '$name', email = '$email', password = '$password' WHERE id = $user_id";
+  } else {
+    $sql = "UPDATE users SET name = '$name', email = '$email' WHERE id = $user_id";
+  }
+
+  if (mysqli_query($conn, $sql)) {
+    $_SESSION['name'] = $name;
+    header("Location: profile.php?success=1");
+    exit();
+  } else {
+    $error = "There was an error updating your profile.";
+  }
+}
+
+mysqli_close($conn);
+?>
 <!DOCTYPE html>
 <html>
 <head>
