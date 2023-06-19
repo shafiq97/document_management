@@ -1,20 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Documents</title>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
   <!-- Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 </head>
 <style>
@@ -42,7 +37,9 @@
     justify-content: space-between;
   }
 </style>
+
 <body>
+
   <?php
   include('header.php');
 
@@ -64,10 +61,37 @@
 
   $searchQuery = $_GET['query'] ?? '';
 
-  $sql    = "SELECT * FROM documents 
-             INNER JOIN users ON documents.user_id = users.id 
-             WHERE documents.title LIKE '%$searchQuery%' and
-             documents.status <> 'draft'";
+  // Define how many results you want per page
+  $results_per_page = 5;
+
+  // Find out the number of results stored in database
+  $sql = "SELECT * FROM documents 
+      INNER JOIN users ON documents.user_id = users.id 
+      WHERE documents.title LIKE '%$searchQuery%' and
+      documents.status <> 'draft'";
+  $result = mysqli_query($conn, $sql);
+  $number_of_results = mysqli_num_rows($result);
+
+  // Determine number of total pages available
+  $number_of_pages = ceil($number_of_results / $results_per_page);
+
+  // Determine which page number visitor is currently on
+  if (!isset($_GET['page'])) {
+    $page = 1;
+  } else {
+    $page = $_GET['page'];
+  }
+
+  // Determine the sql LIMIT starting number for the results on the displaying page
+  $this_page_first_result = ($page - 1) * $results_per_page;
+
+  // Retrieve selected results from database and display them on page
+  $sql = 'SELECT * FROM documents 
+      INNER JOIN users ON documents.user_id = users.id 
+      WHERE documents.title LIKE "%' . $searchQuery . '%" and
+      documents.status <> "draft"
+      LIMIT ' . $this_page_first_result . ',' .  $results_per_page;
+
   $result = mysqli_query($conn, $sql);
 
   $data = array();
@@ -78,7 +102,8 @@
   mysqli_close($conn);
   ?>
 
-  <?php if (isset($alertClass)): ?>
+
+  <?php if (isset($alertClass)) : ?>
     <div class="<?php echo $alertClass; ?>"><?php echo $alertMessage; ?></div>
   <?php endif; ?>
 
@@ -88,8 +113,7 @@
       <div class="col-12">
         <form action="" method="GET">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search documents" name="query"
-              value="<?php echo htmlspecialchars($searchQuery) ?>">
+            <input type="text" class="form-control" placeholder="Search documents" name="query" value="<?php echo htmlspecialchars($searchQuery) ?>">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" type="submit">Search</button>
             </div>
@@ -160,6 +184,15 @@
         </div>
       </div>
     </div>
+    <!-- display the links to the pages -->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <?php for ($page = 1; $page <= $number_of_pages; $page++) { ?>
+          <li class="page-item"><a class="page-link" href="documents.php?page=<?php echo $page; ?>"><?php echo $page; ?></a></li>
+        <?php } ?>
+      </ul>
+    </nav>
   </div>
 </body>
+
 </html>
