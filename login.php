@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Login - My Website</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <!-- Custom Styles -->
@@ -14,7 +14,13 @@
     body {
       font-family: 'Roboto', sans-serif;
       background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
     }
+
 
     .container {
       margin-top: 50px;
@@ -70,21 +76,20 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <div class="card">
       <?php
       if (isset($_GET['message'])) {
-        ?>
+      ?>
         <div class="alert alert-success">
           <p>User has been registered successfully</p>
         </div>
-        <?php
+      <?php
       }
       ?>
-      <img class="mb-2" style="border-radius: 50%;"
-        src="https://images.fastcompany.net/image/upload/w_1280,f_auto,q_auto,fl_lossy/w_596,c_limit,q_auto:best,f_auto/fc/3034007-inline-i-applelogo.jpg"
-        alt="">
+      <img class="mb-2" style="border-radius: 50%;" src="login.jpeg" alt="">
       <h1 class="card-title">Login</h1>
       <?php if (isset($_GET['error']) && $_GET['error'] == 1) { ?>
         <div class="alert alert-danger" role="alert">
@@ -114,17 +119,14 @@
   <!-- Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.jsintegrity=
     sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script>
     // Use JavaScript to remove the alert message after a few seconds
-    setTimeout(function () {
+    setTimeout(function() {
       document.querySelector('.alert').remove();
     }, 5000);
+
     function togglePasswordView() {
       const passwordInput = document.getElementById('password');
       const passwordIcon = document.getElementById('toggle-password-icon');
@@ -141,4 +143,5 @@
     }
   </script>
 </body>
+
 </html>

@@ -24,7 +24,7 @@ $query_doc  = "SELECT * from documents WHERE doc_id = $doc_id";
 $result_doc = mysqli_query($conn, $query_doc);
 $doc_data   = mysqli_fetch_assoc($result_doc);
 
-$query  = "SELECT `id`, `user_id`, `doc_id`, `review`, `rating` FROM reviews WHERE `doc_id` = $doc_id";
+$query  = "SELECT * FROM reviews inner join users on users.id = reviews.user_id WHERE `doc_id` = $doc_id ";
 $result = mysqli_query($conn, $query);
 ?>
 
@@ -59,7 +59,7 @@ $result = mysqli_query($conn, $query);
               <?php echo $row['doc_id']; ?>
             </td>
             <td>
-              <?php echo $row['user_id']; ?>
+              <?php echo $row['name']; ?>
             </td>
             <td>
               <?php echo $row['review']; ?>
