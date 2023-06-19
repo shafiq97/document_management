@@ -60,15 +60,26 @@
   }
 
   $searchQuery = $_GET['query'] ?? '';
+  $subjects = isset($_GET['subject']) ? $_GET['subject'] : [];
+
 
   // Define how many results you want per page
   $results_per_page = 5;
 
   // Find out the number of results stored in database
   $sql = "SELECT * FROM documents 
-      INNER JOIN users ON documents.user_id = users.id 
-      WHERE documents.title LIKE '%$searchQuery%' and
-      documents.status <> 'draft'";
+  INNER JOIN users ON documents.user_id = users.id 
+  WHERE documents.title LIKE '%$searchQuery%' 
+  AND documents.status <> 'draft'";
+
+  if (count($subjects) > 0) {
+    $subjectQuery = join("','", $subjects); // Create a comma-separated list of subjects
+    $sql .= " AND documents.subject IN ('$subjectQuery')";
+  }
+
+  // die($sql);
+
+
   $result = mysqli_query($conn, $sql);
   $number_of_results = mysqli_num_rows($result);
 
@@ -85,15 +96,6 @@
   // Determine the sql LIMIT starting number for the results on the displaying page
   $this_page_first_result = ($page - 1) * $results_per_page;
 
-  // Retrieve selected results from database and display them on page
-  $sql = 'SELECT * FROM documents 
-      INNER JOIN users ON documents.user_id = users.id 
-      WHERE documents.title LIKE "%' . $searchQuery . '%" and
-      documents.status <> "draft"
-      LIMIT ' . $this_page_first_result . ',' .  $results_per_page;
-
-  $result = mysqli_query($conn, $sql);
-
   $data = array();
   while ($row = mysqli_fetch_assoc($result)) {
     $data[] = $row;
@@ -109,90 +111,96 @@
 
   <div class="container" style="padding-top: 3vh">
     <!-- Search form -->
-    <div class="row">
-      <div class="col-12">
-        <form action="" method="GET">
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search documents" name="query" value="<?php echo htmlspecialchars($searchQuery) ?>">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="submit">Search</button>
+    <div class="col-12">
+
+      <div class="row">
+        <div class="col-12">
+          <form action="" method="GET">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Search documents" name="query" value="<?php echo htmlspecialchars($searchQuery) ?>">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Filter Section -->
+        <div class="col-3 position-sticky" style="top:0;">
+          <div class="filter-section">
+            <h5>Filter by Subject:</h5>
+            <!-- Your checkboxes here... -->
+            <div>
+              <form action="" method="GET">
+                <input type="hidden" name="query" value="<?php echo htmlspecialchars($searchQuery) ?>">
+                <input type="checkbox" id="subject1" name="subject[]" value="Mathematics">
+                <label for="subject1"> Mathematics</label><br>
+                <input type="checkbox" id="subject2" name="subject[]" value="Science">
+                <label for="subject2"> Science</label><br>
+                <input type="checkbox" id="subject3" name="subject[]" value="Economics">
+                <label for="subject3"> Economics</label><br>
+                <input type="checkbox" id="subject4" name="subject[]" value="Computer Science">
+                <label for="subject4"> Computer Science</label><br>
+                <input type="checkbox" id="subject5" name="subject[]" value="Sociology">
+                <label for="subject5"> Sociology</label><br>
+                <input type="checkbox" id="subject6" name="subject[]" value="Accounting">
+                <label for="subject6"> Accounting</label><br>
+                <input type="checkbox" id="subject7" name="subject[]" value="History">
+                <label for="subject7"> History</label><br>
+                <input type="checkbox" id="subject8" name="subject[]" value="Art">
+                <label for="subject8"> Art</label><br>
+                <input type="checkbox" id="subject9" name="subject[]" value="Engineering">
+                <label for="subject9"> Engineering</label><br>
+                <input type="checkbox" id="subject10" name="subject[]" value="Business">
+                <label for="subject10"> Business</label><br>
+                <input type="checkbox" id="subject11" name="subject[]" value="English">
+                <label for="subject11"> English</label><br>
+                <input type="checkbox" id="subject12" name="subject[]" value="Others">
+                <label for="subject12"> Others</label><br>
+                <button class="btn btn-primary" type="submit">Filter</button>
+              </form>
             </div>
           </div>
-        </form>
-      </div>
-    </div>
+        </div>
 
-    <div class="row">
-      <!-- Filter Section -->
-      <div class="col-3 position-sticky" style="top:0;">
-        <div class="filter-section">
-          <h5>Filter by Subject:</h5>
-          <!-- Your checkboxes here... -->
-          <div>
-            <input type="checkbox" id="subject1" name="subject1" value="Mathematics">
-            <label for="subject1"> Mathematics</label><br>
-            <input type="checkbox" id="subject2" name="subject2" value="Science">
-            <label for="subject2"> Science</label><br>
-            <input type="checkbox" id="subject3" name="subject3" value="Economics">
-            <label for="subject3"> Economics</label><br>
-            <input type="checkbox" id="subject4" name="subject4" value="Computer Science">
-            <label for="subject4"> Computer Science</label><br>
-            <input type="checkbox" id="subject5" name="subject5" value="Sociology">
-            <label for="subject5"> Sociology</label><br>
-            <input type="checkbox" id="subject6" name="subject6" value="Accounting">
-            <label for="subject6"> Accounting</label><br>
-            <input type="checkbox" id="subject7" name="subject7" value="History">
-            <label for="subject7"> History</label><br>
-            <input type="checkbox" id="subject8" name="subject8" value="Art">
-            <label for="subject8"> Art</label><br>
-            <input type="checkbox" id="subject9" name="subject9" value="Engineering">
-            <label for="subject9"> Engineering</label><br>
-            <input type="checkbox" id="subject10" name="subject10" value="Business">
-            <label for="subject10"> Business</label><br>
-            <input type="checkbox" id="subject11" name="subject11" value="English">
-            <label for="subject11"> English</label><br>
-            <input type="checkbox" id="subject12" name="subject12" value="Others">
-            <label for="subject12"> Others</label><br>
+        <!-- Card List Section -->
+        <div class="col-8">
+          <div class="card-list">
+            <?php
+            foreach ($data as $document) {
+              echo "<div class='card p-3'>";
+              echo "<div class='card-content'>";
+              echo "<a href='profile-user.php?id=" . htmlspecialchars($document['user_id']) . "'>";
+              echo "<img class='card-img' src='" . htmlspecialchars($document['picture']) . "' alt='Profile Picture'>";
+              echo "</a>";
+              echo "<div>";
+              echo "<div class='card-title'>" . htmlspecialchars($document['title']) . "</div>";
+              echo "<div class='card-subtitle'>Author: " . htmlspecialchars($document['author']) . "</div>";
+              echo "<div class='card-text mb-2'>" . htmlspecialchars($document['description']) . "</div>";
+              echo "</div>";
+              echo "</div>";
+              echo "<div class='card-actions'>";
+              echo "<a class='card-title btn btn-secondary mr-3' style='margin-left:58px' href='../api/" . $document['filepath'] . "' download='" . $document['filename'] . "'>Download</a>";
+              echo "<a class='card-title btn btn-primary mr-3' href='../api/" . $document['filepath'] . "?preview=true'>Preview</a>";
+              echo "<a class='card-title btn btn-warning' href='review.php?doc_id=" . $document['doc_id'] . "'>Review</a>";
+              echo "</div>";
+              echo "</div>";
+            }
+            ?>
           </div>
         </div>
       </div>
-
-      <!-- Card List Section -->
-      <div class="col-8">
-        <div class="card-list">
-          <?php
-          foreach ($data as $document) {
-            echo "<div class='card p-3'>";
-            echo "<div class='card-content'>";
-            echo "<a href='profile-user.php?id=" . htmlspecialchars($document['user_id']) . "'>";
-            echo "<img class='card-img' src='" . htmlspecialchars($document['picture']) . "' alt='Profile Picture'>";
-            echo "</a>";
-            echo "<div>";
-            echo "<div class='card-title'>" . htmlspecialchars($document['title']) . "</div>";
-            echo "<div class='card-subtitle'>Author: " . htmlspecialchars($document['author']) . "</div>";
-            echo "<div class='card-text mb-2'>" . htmlspecialchars($document['description']) . "</div>";
-            echo "</div>";
-            echo "</div>";
-            echo "<div class='card-actions'>";
-            echo "<a class='card-title btn btn-secondary mr-3' style='margin-left:58px' href='../api/" . $document['filepath'] . "' download='" . $document['filename'] . "'>Download</a>";
-            echo "<a class='card-title btn btn-primary mr-3' href='../api/" . $document['filepath'] . "?preview=true'>Preview</a>";
-            echo "<a class='card-title btn btn-warning' href='review.php?doc_id=" . $document['doc_id'] . "'>Review</a>";
-            echo "</div>";
-            echo "</div>";
-          }
-          ?>
-        </div>
-      </div>
+      <!-- display the links to the pages -->
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <?php for ($page = 1; $page <= $number_of_pages; $page++) { ?>
+            <li class="page-item"><a class="page-link" href="documents.php?page=<?php echo $page; ?>"><?php echo $page; ?></a></li>
+          <?php } ?>
+        </ul>
+      </nav>
     </div>
-    <!-- display the links to the pages -->
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        <?php for ($page = 1; $page <= $number_of_pages; $page++) { ?>
-          <li class="page-item"><a class="page-link" href="documents.php?page=<?php echo $page; ?>"><?php echo $page; ?></a></li>
-        <?php } ?>
-      </ul>
-    </nav>
-  </div>
 </body>
 
 </html>
