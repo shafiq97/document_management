@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $fileKeywords = mysqli_real_escape_string($conn, $_POST['keywords']);
     $fileStatus   = mysqli_real_escape_string($conn, $_POST['status']);
     $fileUserId   = mysqli_real_escape_string($conn, $_POST['user_id']);
+    $fileSubject   = mysqli_real_escape_string($conn, $_POST['subject']);
     $fileName     = $_FILES['file']['name'];
     $fileTempName = $_FILES['file']['tmp_name'];
     $fileSize     = $_FILES['file']['size'];
@@ -43,8 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         move_uploaded_file($fileTempName, $fileDest);
 
         // Insert the file information into the database
-        $sql = "INSERT INTO documents (title, date, description, type, author, keywords, status, filename, filepath, user_id) 
-                VALUES ('$fileTitle', '$fileDate', '$fileDesc', '$fileType', '$fileAuthor', '$fileKeywords', '$fileStatus', '$fileName', '$fileDest', '$fileUserId')";
+        $sql = "INSERT INTO documents (title, date, description, type, author, keywords, status, filename, filepath, user_id, subject) 
+                VALUES ('$fileTitle', '$fileDate', '$fileDesc', '$fileType', '$fileAuthor', '$fileKeywords', '$fileStatus', '$fileName', '$fileDest', '$fileUserId', '$fileSubject')";
         if (mysqli_query($conn, $sql)) {
             // Redirect to a success page
             header('Location: success.php');
@@ -61,4 +62,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 // Close database connection
 mysqli_close($conn);
-?>
