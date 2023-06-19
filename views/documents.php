@@ -160,6 +160,7 @@
                 <input type="checkbox" id="subject12" name="subject[]" value="Others">
                 <label for="subject12"> Others</label><br>
                 <button class="btn btn-primary" type="submit">Filter</button>
+                <button class="btn btn-warning" type="reset">Reset</button>
               </form>
             </div>
           </div>
