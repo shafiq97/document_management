@@ -27,7 +27,7 @@
           <a class="dropdown-item" href="profile.php">My Profile</a>
           <a class="dropdown-item" href="following.php">Following</a>
           <a class="dropdown-item" href="followers.php">Followers</a>
-          <a class="dropdown-item" href="#">Favourite</a>
+          <a class="dropdown-item" href="favourite-list.php">Favourite</a>
           <a class="dropdown-item" href="collections.php">Collection</a>
         </div>
       </li>

@@ -70,7 +70,7 @@ $result = mysqli_query($conn, $sql);
               <?php echo $row['email']; ?>
             </td>
             <td>
-              <button type="button" class="btn btn-danger delete-btn" data-id="<?php echo $row['id']; ?>">Delete</button>
+              <button type="button" class="btn btn-danger delete-btn" data-id="<?php echo $row['id']; ?>">Disactive</button>
             </td>
           </tr>
         <?php } ?>

@@ -1,5 +1,5 @@
 <?php
-// Your database connection code here
+// Your existing database connection code here
 session_start();
 if (!isset($_SESSION['user_id'])) {
   header("Location: ../login.php");
@@ -10,32 +10,38 @@ ini_set('display_startup_errors', '1');
 error_reporting(-1);
 error_reporting(E_ALL);
 
-// Connect to database
 $servername = "localhost";
 $username   = "root";
 $password   = "";
 $dbname     = "document";
 $conn       = mysqli_connect($servername, $username, $password, $dbname);
 
-// Check connection
 if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
 
-// Retrieve the following IDs for the current user
-$following_ids     = [];
-$logged_in_user_id = $_SESSION['user_id'];
+// Retrieve favorite document IDs for the current user
+$fav_doc_ids        = [];
+$logged_in_user_id  = $_SESSION['user_id'];
 
-$sql    = "SELECT follower_id FROM follows WHERE following_id = $logged_in_user_id";
+$sql    = "SELECT doc_id FROM favorites WHERE user_id = $logged_in_user_id";
 $result = mysqli_query($conn, $sql);
 
 if (mysqli_num_rows($result) > 0) {
   while ($row = mysqli_fetch_assoc($result)) {
-    $following_ids[] = $row['follower_id'];
+    $fav_doc_ids[] = $row['doc_id'];
   }
 }
 
-// Your database connection closing code here
+// Fetch details for each favorite document
+$fav_documents = [];
+foreach ($fav_doc_ids as $doc_id) {
+  $sql    = "SELECT * FROM documents WHERE doc_id = $doc_id";
+  $result = mysqli_query($conn, $sql);
+  if ($row = mysqli_fetch_assoc($result)) {
+    $fav_documents[] = $row;
+  }
+}
 ?>
 
 
@@ -239,27 +245,22 @@ if (mysqli_num_rows($result) > 0) {
   <?php include 'header.php' ?>
   <div class="l-container">
     <div class="text-center mb-5">
-      <h1>Your Followers</h1>
+      <h1>Your Favorite Documents</h1>
     </div>
     <ul>
       <?php
-      foreach ($following_ids as $following_id) {
-        // Fetch the profile information for each following ID from the database
-        $sql     = "SELECT * FROM users WHERE id = $following_id";
-        $result  = mysqli_query($conn, $sql);
-        $profile = mysqli_fetch_assoc($result);
-
-        // Display the profile information in the list item
-        echo '<a href="profile-user.php?id=' . $following_id . '">';
-        echo '<li class="list" data-name="' . $profile['username'] . '">';
+      foreach ($fav_documents as $document) {
+        echo '<a href="' . $document['filepath'] . '" download>';
+        echo '<li class="list" data-name="' . $document['title'] . '">';
         echo '<div class="list__profile">';
-        echo '<div><img src="' . $profile['picture'] . '"></div>';
         echo '<div class="list__label">';
-        echo '<div class="list__label--header">Name</div>';
-        echo '<div class="list__label--value">' . $profile['username'] . '</div>';
+        echo '<div class="list__label--header">Title</div>';
+        echo '<div class="list__label--value">' . $document['title'] . '</div>';
         echo '</div>';
+        echo '<div class="list__label">';
+        echo '<div class="list__label--header">Author</div>';
+        echo '<div class="list__label--value">' . $document['author'] . '</div>';
         echo '</div>';
-        echo '<div class="list__photos">';
         echo '</div>';
         echo '</li>';
         echo '</a>';

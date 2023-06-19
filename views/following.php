@@ -249,6 +249,9 @@ if (mysqli_num_rows($result) > 0) {
 <body translate="no">
   <?php include 'header.php' ?>
   <div class="l-container">
+  <div class="text-center mb-5">
+      <h1>Your Following</h1>
+    </div>
     <ul>
       <?php
       foreach ($following_ids as $following_id) {
