@@ -202,6 +202,10 @@ mysqli_close($conn);
             <label for="email">Email</label>
             <input readonly type="email" class="form-control" id="email" name="email" value="<?php echo $user['email'] ?>">
           </div>
+          <div class="form-group">
+            <label for="role">User Status</label>
+            <input readonly type="role" class="form-control" id="role" name="role" value="<?php echo $user['status'] ?>">
+          </div>
           <!-- <div class="form-group">
             <label for="password">New Password</label>
             <input type="password" class="form-control" id="password" name="password">
