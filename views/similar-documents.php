@@ -34,7 +34,11 @@ function search_keywords($table, $keywords) {
 
 
 // Retrieve documents data from database
-$sql = "SELECT * FROM documents where user_id = '$_SESSION[user_id]' and status <> 'draft'";
+if (isset($_GET['id'])) {
+  $sql = "SELECT * FROM documents where user_id = '$_GET[id]' and status <> 'draft'";
+} else {
+  $sql = "SELECT * FROM documents where user_id = '$_SESSION[user_id]'";
+}
 $result = mysqli_query($conn, $sql);
 
 $data = array();
