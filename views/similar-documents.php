@@ -39,6 +39,7 @@ if (isset($_GET['id'])) {
 } else {
   $sql = "SELECT * FROM documents where user_id = '$_SESSION[user_id]'";
 }
+
 $result = mysqli_query($conn, $sql);
 
 $data = array();

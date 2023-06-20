@@ -366,8 +366,13 @@ mysqli_close($conn);
           });
         }
       });
+      var ajaxUrl = 'similar-documents.php';
+      var userId = "<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>";
+      if (userId) {
+        ajaxUrl = 'similar-documents.php?id=' + userId;
+      }
       var table2 = $('#similar-table').DataTable({
-        "ajax": "similar-documents.php",
+        "ajax": ajaxUrl,
         "columns": [{
             "data": "doc_id"
           },
